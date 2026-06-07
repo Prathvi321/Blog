@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getPosts } from "@/app/actions/posts";
 import WordReveal from "@/components/animations/WordReveal";
-import SVGPathProgress from "@/components/animations/SVGPathProgress";
+
 import PostRenderer from "@/components/blog/PostRenderer";
 import Comments from "@/components/blog/Comments";
 import Badge from "@/components/ui/Badge";
@@ -144,8 +144,7 @@ export default async function ArticlePage({ params }: PageProps) {
 
           {/* Sticky Sidebar */}
           <aside className="lg:col-span-4 lg:sticky lg:top-28 h-fit space-y-8">
-            {/* SVG scroll timeline */}
-            <SVGPathProgress />
+
 
             {/* Author Bio Card */}
             <div className="border border-[var(--border)] bg-[var(--card)] p-6 rounded-lg transition-colors duration-300">
