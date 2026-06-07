@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@clerk/nextjs": "^7.4.3",
+    "@clerk/nextjs": "^5.7.6",
     "@editorjs/code": "^2.9.4",
     "@editorjs/delimiter": "^1.4.2",
     "@editorjs/editorjs": "^2.31.6",
