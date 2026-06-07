@@ -191,7 +191,7 @@ export default function EditorWrapper({
         }
       }
     };
-  }, [initialData, onAutoSave, onChange, onImageUpload]);
+  }, [onAutoSave, onChange, onImageUpload]);
 
   return (
     <div className="relative w-full border border-[var(--border)] bg-[var(--card)] rounded-lg p-8 transition-colors duration-300">

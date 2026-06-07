@@ -175,6 +175,16 @@ export default function EditorPageContent({
     }
   };
 
+  // Auto-saves and redirects to dashboard on exit
+  const handleBackToDashboard = async () => {
+    try {
+      await handleAutoSave(content);
+    } catch (e) {
+      console.error("Auto-save on exit failed:", e);
+    }
+    router.push("/dashboard");
+  };
+
   // Restore revision handler
   const handleRestoreRevision = async () => {
     if (!selectedRevision) return;
@@ -202,13 +212,13 @@ export default function EditorPageContent({
       {/* Editor Controls Bar */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-[var(--border)] pb-6 mb-8 transition-colors duration-300">
         <div className="flex items-center gap-4">
-          <Link
-            href="/dashboard"
+          <button
+            onClick={handleBackToDashboard}
             className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border)] bg-[var(--card)] text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:border-[var(--foreground)] transition-all"
             aria-label="Back to dashboard"
           >
             <ArrowLeft size={16} />
-          </Link>
+          </button>
           <div>
             <h1 className="font-serif-editorial text-xl font-medium text-[var(--foreground)] truncate max-w-md">
               Editing: {title || "Untitled Draft"}
