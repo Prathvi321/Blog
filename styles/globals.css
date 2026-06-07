@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #0d0d0d;
+    --foreground: #f5f0e8;
+    --card: #141414;
+    --card-foreground: #f5f0e8;
+    --accent: #e8a045;
+    --accent-foreground: #0d0d0d;
+    --muted: #262626;
+    --muted-foreground: #a3a3a3;
+    --border: #262626;
+    --scrollbar-track: #0d0d0d;
+  }
+
+  .light-theme {
+    --background: #f5f0e8;
+    --foreground: #0d0d0d;
+    --card: #ebe5db;
+    --card-foreground: #0d0d0d;
+    --accent: #d97706;
+    --accent-foreground: #f5f0e8;
+    --muted: #e2d9cd;
+    --muted-foreground: #525252;
+    --border: #d5c8b7;
+    --scrollbar-track: #f5f0e8;
+  }
+}
+
+@layer base {
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body), system-ui, sans-serif;
+    position: relative;
+    overflow-x: hidden;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  /* Grain/noise overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+    opacity: 0.8;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-serif-editorial {
+    font-family: var(--font-heading), Georgia, serif;
+    font-weight: 400;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f5b05c;
+}
+
+/* Custom styles to override EditorJS defaults for luxury dark theme */
+.codex-editor {
+  color: var(--foreground);
+}
+
+.codex-editor__redactor {
+  padding-bottom: 150px !important;
+}
+
+.ce-block {
+  margin: 0.5em 0;
+}
+
+.ce-paragraph {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  font-family: var(--font-body), sans-serif;
+  color: var(--foreground);
+  opacity: 0.9;
+}
+
+.ce-header {
+  font-family: var(--font-heading), serif;
+  font-weight: 500;
+  color: var(--foreground);
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.ce-block--selected .ce-block__content {
+  background-color: rgba(232, 160, 69, 0.1) !important;
+}
+
+/* Dropdown / Settings / Toolbar adjustments */
+.ce-toolbox,
+.ce-settings,
+.ce-conversion-toolbar,
+.ce-inline-toolbar {
+  background-color: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  color: var(--foreground) !important;
+}
+
+.ce-toolbox__button,
+.ce-settings__button,
+.ce-conversion-toolbar__button,
+.ce-inline-toolbar__button {
+  color: var(--foreground) !important;
+}
+
+.ce-toolbox__button:hover,
+.ce-settings__button:hover,
+.ce-conversion-toolbar__button:hover,
+.ce-inline-toolbar__button:hover {
+  background-color: var(--border) !important;
+}
+
+.cdx-button {
+  background-color: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--foreground) !important;
+}
+
+.cdx-input {
+  background-color: var(--background) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--foreground) !important;
+  border-radius: 4px !important;
+}
+
+.ce-popover {
+  background-color: var(--card) !important;
+  border: 1px solid var(--border) !important;
+}
+
+.ce-popover-item {
+  color: var(--foreground) !important;
+}
+
+.ce-popover-item:hover {
+  background-color: var(--border) !important;
+}
+
+.ce-popover-item__icon {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+/* Simple class helper for editorial style overlays */
+.editorial-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem;
+}
