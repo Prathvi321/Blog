@@ -36,7 +36,7 @@ export default function EditorPageContent({
   const [tags, setTags] = useState<string[]>(post.tags || []);
   const [newTag, setNewTag] = useState("");
   const [status, setStatus] = useState(post.status);
-  const [content, setContent] = useState(post.content);
+  const contentRef = useRef(post.content);
 
   const [revisions, setRevisions] = useState<any[]>(initialRevisions);
   const [selectedRevision, setSelectedRevision] = useState<any>(null);
@@ -108,7 +108,7 @@ export default function EditorPageContent({
 
   // Auto-Save action triggered from EditorWrapper
   const handleAutoSave = async (updatedContent: any) => {
-    setContent(updatedContent);
+    contentRef.current = updatedContent;
     await updatePost(post.id, {
       title,
       excerpt,
@@ -121,9 +121,9 @@ export default function EditorPageContent({
   const handleSaveDraft = async () => {
     setSaving(true);
     try {
-      await handleAutoSave(content);
+      await handleAutoSave(contentRef.current);
       // Create a recovery revision record
-      const rev = await savePostRevision(post.id, content);
+      const rev = await savePostRevision(post.id, contentRef.current);
       if (rev.success && rev.data) {
         // Append newly created revision details to local states
         setRevisions((prev) => [
@@ -145,10 +145,10 @@ export default function EditorPageContent({
     setPublishing(true);
     try {
       // 1. Auto save all current states
-      await handleAutoSave(content);
+      await handleAutoSave(contentRef.current);
 
       // 2. Save revision
-      const rev = await savePostRevision(post.id, content);
+      const rev = await savePostRevision(post.id, contentRef.current);
       if (rev.success && rev.data) {
         setRevisions((prev) => [
           { ...rev.data, profiles: { display_name: profile.display_name } },
@@ -181,7 +181,7 @@ export default function EditorPageContent({
   // Auto-saves and redirects to dashboard on exit
   const handleBackToDashboard = async () => {
     try {
-      await handleAutoSave(content);
+      await handleAutoSave(contentRef.current);
     } catch (e) {
       console.error("Auto-save on exit failed:", e);
     }
@@ -195,13 +195,13 @@ export default function EditorPageContent({
 
     try {
       const restoredContent = selectedRevision.content;
-      setContent(restoredContent);
+      contentRef.current = restoredContent;
       await handleAutoSave(restoredContent);
       setIsPreviewOpen(false);
       setIsHistoryOpen(false);
       
       // Reload page to re-initialize editor with the new restored contents
-      router.refresh();
+      window.location.reload();
     } catch (e) {
       console.error(e);
     }
@@ -385,8 +385,8 @@ export default function EditorPageContent({
         {/* Right Side: The Full Rich EditorJS interface */}
         <div className="lg:col-span-8">
           <EditorWrapper
-            initialData={content}
-            onChange={(d) => setContent(d)}
+            initialData={post.content}
+            onChange={(d) => { contentRef.current = d; }}
             onAutoSave={handleAutoSave}
             onImageUpload={handleInlineImageUpload}
           />
