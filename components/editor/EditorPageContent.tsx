@@ -4,7 +4,10 @@ import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { updatePost, savePostRevision, uploadCoverImage, getPostRevisions } from "@/app/actions/posts";
-import EditorWrapper from "@/components/editor/EditorWrapper";
+import dynamic from "next/dynamic";
+const EditorWrapper = dynamic(() => import("@/components/editor/EditorWrapper"), {
+  ssr: false,
+});
 import PostRenderer from "@/components/blog/PostRenderer";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";

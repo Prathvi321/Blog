@@ -1,8 +1,27 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { CheckCircle, CloudLightning, Loader2 } from "lucide-react";
+import { CheckCircle, Loader2 } from "lucide-react";
 import anime from "animejs";
+
+// @ts-ignore
+import EditorJS from "@editorjs/editorjs";
+// @ts-ignore
+import Paragraph from "@editorjs/paragraph";
+// @ts-ignore
+import Header from "@editorjs/header";
+// @ts-ignore
+import ImageTool from "@editorjs/image";
+// @ts-ignore
+import Quote from "@editorjs/quote";
+// @ts-ignore
+import Code from "@editorjs/code";
+// @ts-ignore
+import List from "@editorjs/list";
+// @ts-ignore
+import Delimiter from "@editorjs/delimiter";
+// @ts-ignore
+import Embed from "@editorjs/embed";
 
 interface EditorWrapperProps {
   initialData?: any;
@@ -47,30 +66,10 @@ export default function EditorWrapper({
   }, [saveState]);
 
   useEffect(() => {
-    let active = true;
-
     const initEditor = async () => {
+      if (editorRef.current) return;
+
       try {
-        // Dynamically import Editor.js and plugins for SSR compatibility
-        const EditorJS = (await import("@editorjs/editorjs")).default;
-        const Paragraph = (await import("@editorjs/paragraph")).default;
-        const Header = (await import("@editorjs/header")).default;
-        const ImageTool = (await import("@editorjs/image")).default;
-        const Quote = (await import("@editorjs/quote")).default;
-        const Code = (await import("@editorjs/code")).default;
-        const List = (await import("@editorjs/list")).default;
-        const Delimiter = (await import("@editorjs/delimiter")).default;
-        // @ts-ignore
-        const Embed = (await import("@editorjs/embed")).default;
-
-        if (!active) return;
-
-        // Destroy existing editor instance if it exists
-        if (editorRef.current) {
-          await editorRef.current.destroy();
-          editorRef.current = null;
-        }
-
         const editor = new EditorJS({
           holder: editorDivId,
           data: initialData || {},
@@ -140,7 +139,7 @@ export default function EditorWrapper({
               },
             },
           },
-          async onChange(api) {
+          async onChange(api: any) {
             isModifiedRef.current = true;
             if (onChange) {
               const savedData = await api.saver.save();
@@ -181,11 +180,11 @@ export default function EditorWrapper({
     }, 30000);
 
     return () => {
-      active = false;
       clearInterval(autoSaveInterval);
       if (editorRef.current && typeof editorRef.current.destroy === "function") {
         try {
           editorRef.current.destroy();
+          editorRef.current = null;
         } catch (e) {
           console.error("Error destroying editor:", e);
         }
