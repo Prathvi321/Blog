@@ -476,6 +476,32 @@ export default function EditorPageContent({
         )}
       </Modal>
 
+      {publishing && (
+        <div className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[var(--background)]/85 backdrop-blur-md transition-all duration-500 animate-fadeIn">
+          <div className="flex flex-col items-center max-w-sm text-center px-6">
+            {/* Elegant luxury loading spinner */}
+            <div className="relative flex items-center justify-center w-20 h-20 mb-6">
+              {/* Outer pulsing ring */}
+              <div className="absolute inset-0 rounded-full border-2 border-[var(--accent)]/20 animate-ping duration-1000" />
+              {/* Spinning active ring */}
+              <div className="absolute inset-0 rounded-full border-t-2 border-r-2 border-l-2 border-transparent border-t-[var(--accent)] border-r-[var(--accent)] animate-spin" style={{ animationDuration: '0.8s' }} />
+              {/* Inner static logo detail */}
+              <Globe className="text-[var(--accent)] animate-pulse" size={28} />
+            </div>
+            
+            <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-[var(--accent)] font-semibold mb-2">
+              Publishing Live
+            </span>
+            <h3 className="font-serif-editorial text-2xl text-[var(--foreground)] font-normal mb-3">
+              Deploying Article...
+            </h3>
+            <p className="text-xs text-[var(--muted-foreground)] leading-relaxed font-light">
+              We are compiling and indexing your thoughts for the select community distribution directory.
+            </p>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

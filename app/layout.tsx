@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/animations/MaskTransition";
 import Navbar from "@/components/layout/Navbar";
 import SyncProfile from "@/components/auth/SyncProfile";
 import { Fraunces, DM_Sans } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
 import "../styles/globals.css";
 
 const headingFont = Fraunces({
@@ -46,6 +47,17 @@ export default function RootLayout({
       >
         <body className="antialiased">
           <ThemeProvider>
+            <NextTopLoader
+              color="var(--accent)"
+              initialPosition={0.08}
+              crawlSpeed={200}
+              height={2.5}
+              crawl={true}
+              showSpinner={false}
+              easing="ease"
+              speed={200}
+              shadow="0 0 10px var(--accent), 0 0 5px var(--accent)"
+            />
             <SyncProfile />
             <div className="flex min-h-screen flex-col">
               <Navbar />
