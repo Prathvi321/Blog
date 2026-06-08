@@ -30,10 +30,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: post.title,
-    description: post.excerpt || "An exclusive article published on Antigravity Journal.",
+    description: post.excerpt || "An exclusive article published on Byte & Build.",
     openGraph: {
       title: post.title,
-      description: post.excerpt || "An exclusive article published on Antigravity Journal.",
+      description: post.excerpt || "An exclusive article published on Byte & Build.",
       type: "article",
       publishedTime: post.published_at || undefined,
       images: post.cover_image_url ? [{ url: post.cover_image_url }] : [],

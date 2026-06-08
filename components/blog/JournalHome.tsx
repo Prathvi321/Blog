@@ -31,7 +31,7 @@ export default function JournalHome({ initialPosts, tags }: JournalHomeProps) {
           Volume I — Member Protected Circulation
         </span>
         <KineticText
-          text="ANTIGRAVITY JOURNAL"
+          text="BYTE & BUILD"
           className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[var(--foreground)]"
         />
         <div className="flex items-start gap-3 mt-6 text-[var(--muted-foreground)] leading-relaxed max-w-2xl text-sm sm:text-base">

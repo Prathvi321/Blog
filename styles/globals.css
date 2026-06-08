@@ -147,22 +147,75 @@
   border-radius: 4px !important;
 }
 
-.ce-popover {
+/* Popover & block settings panel styling */
+.ce-popover,
+.ce-popover__container {
   background-color: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--foreground) !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Popover items */
+.ce-popover-item,
+.ce-popover__item {
+  color: var(--foreground) !important;
+  background-color: transparent !important;
+}
+
+.ce-popover-item:hover,
+.ce-popover__item:hover,
+.ce-popover-item--active,
+.ce-popover-item--focused,
+.ce-popover__item--active,
+.ce-popover__item--focused {
+  background-color: var(--border) !important;
+  color: var(--foreground) !important;
+}
+
+.ce-popover-item__title,
+.ce-popover-item__label,
+.ce-popover-item__sub-title,
+.ce-popover__item-title,
+.ce-popover__item-label {
+  color: var(--foreground) !important;
+}
+
+.ce-popover-item__icon,
+.ce-popover__item-icon {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
   border: 1px solid var(--border) !important;
 }
 
-.ce-popover-item {
-  color: var(--foreground) !important;
-}
-
-.ce-popover-item:hover {
-  background-color: var(--border) !important;
-}
-
-.ce-popover-item__icon {
+/* Search input within popover */
+.ce-popover__search,
+.ce-popover-search,
+.ce-popover-search-form,
+.ce-popover__search-input,
+.ce-popover-search-form__input,
+.ce-popover__search input,
+.ce-popover-search input {
   background-color: var(--background) !important;
+  border: 1px solid var(--border) !important;
   color: var(--foreground) !important;
+  border-radius: 6px !important;
+}
+
+.ce-popover__search input::placeholder,
+.ce-popover-search input::placeholder,
+.ce-popover-search-form__input::placeholder {
+  color: var(--muted-foreground) !important;
+  opacity: 0.8;
+}
+
+/* Separator lines */
+.ce-popover-item-separator,
+.ce-popover__item-separator,
+.ce-popover-item-separator__line,
+.ce-popover__item-separator-line {
+  background-color: var(--border) !important;
+  opacity: 0.5;
 }
 
 /* Simple class helper for editorial style overlays */

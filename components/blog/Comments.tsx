@@ -30,7 +30,7 @@ export default function Comments() {
         category={category}
         categoryId={categoryId}
         mapping="pathname"
-        term="Welcome to Antigravity Discussions!"
+        term="Welcome to Byte & Build Discussions!"
         reactionsEnabled="1"
         emitMetadata="0"
         inputPosition="top"

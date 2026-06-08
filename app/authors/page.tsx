@@ -8,7 +8,7 @@ export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: "Authors Directory",
-  description: "The minds and curators behind the Antigravity Journal publications.",
+  description: "The minds and curators behind the Byte & Build publications.",
 };
 
 export default async function AuthorsPage() {

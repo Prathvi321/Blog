@@ -12,6 +12,35 @@ interface PostRendererProps {
   };
 }
 
+const renderListItems = (items: any[], parentKey: string, isOrdered: boolean): React.ReactNode[] => {
+  return items.map((item: any, i: number) => {
+    if (typeof item === "string") {
+      return (
+        <li key={`${parentKey}-li-${i}`} dangerouslySetInnerHTML={{ __html: item }} />
+      );
+    }
+    
+    if (item && typeof item === "object") {
+      const content = item.content || "";
+      const nestedItems = item.items || [];
+      const NestedListTag = isOrdered ? "ol" : "ul";
+      
+      return (
+        <li key={`${parentKey}-li-${i}`}>
+          <span dangerouslySetInnerHTML={{ __html: content }} />
+          {nestedItems.length > 0 && (
+            <NestedListTag className={`${isOrdered ? "list-decimal" : "list-disc"} pl-6 mt-2 space-y-2`}>
+              {renderListItems(nestedItems, `${parentKey}-nested-${i}`, isOrdered)}
+            </NestedListTag>
+          )}
+        </li>
+      );
+    }
+    
+    return null;
+  });
+};
+
 export default function PostRenderer({ content }: PostRendererProps) {
   if (!content || !content.blocks || !Array.isArray(content.blocks)) {
     return (
@@ -118,6 +147,7 @@ export default function PostRenderer({ content }: PostRendererProps) {
           case "list": {
             const isOrdered = block.data.style === "ordered";
             const ListTag = isOrdered ? "ol" : "ul";
+            const items = block.data.items || [];
             return (
               <ListTag
                 key={key}
@@ -125,10 +155,36 @@ export default function PostRenderer({ content }: PostRendererProps) {
                   isOrdered ? "list-decimal" : "list-disc"
                 } pl-6 mb-6 text-base space-y-2.5 text-[var(--foreground)] font-light`}
               >
-                {block.data.items.map((item: string, i: number) => (
-                  <li key={`${key}-li-${i}`} dangerouslySetInnerHTML={{ __html: item }} />
-                ))}
+                {renderListItems(items, key, isOrdered)}
               </ListTag>
+            );
+          }
+
+          case "checklist": {
+            const items = block.data.items || [];
+            return (
+              <div key={key} className="mb-6 space-y-2.5">
+                {items.map((item: any, i: number) => {
+                  const isChecked = typeof item === "object" ? !!item.checked : false;
+                  const textContent = typeof item === "string" ? item : (item.text || item.content || "");
+                  return (
+                    <div key={`${key}-check-${i}`} className="flex items-start gap-2.5">
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        readOnly
+                        className="rounded border-[var(--border)] bg-[var(--card)] text-[var(--accent)] focus:ring-0 focus:ring-offset-0 pointer-events-none mt-1 h-4 w-4 shrink-0"
+                      />
+                      <span
+                        className={`text-base font-light leading-relaxed ${
+                          isChecked ? "line-through text-[var(--muted-foreground)] opacity-75" : "text-[var(--foreground)]"
+                        }`}
+                        dangerouslySetInnerHTML={{ __html: textContent }}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
             );
           }
 

@@ -9,7 +9,7 @@ export default function SignInPage() {
         
         <div className="mb-6 text-center">
           <h2 className="font-serif-editorial text-3xl font-semibold text-[var(--foreground)]">Welcome Back</h2>
-          <p className="text-xs text-[var(--muted-foreground)] mt-2 uppercase tracking-widest">Antigravity Access Portal</p>
+          <p className="text-xs text-[var(--muted-foreground)] mt-2 uppercase tracking-widest">Byte & Build Access Portal</p>
         </div>
         
         <SignIn

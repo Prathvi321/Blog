@@ -46,7 +46,7 @@ export default function Navbar() {
             href="/"
             className="font-serif-editorial text-2xl font-bold tracking-tight text-[var(--accent)] hover:opacity-90 transition-opacity"
           >
-            A N T I G R A V I T Y
+            Byte & Build
           </Link>
         </div>
 
@@ -88,7 +88,7 @@ export default function Navbar() {
           {/* Clerk Auth Buttons */}
           <div className="flex items-center">
             {isLoaded && isSignedIn && (
-              <div className="border border-[var(--border)] rounded-full p-0.5 bg-[var(--card)]">
+              <div className="flex h-10 w-10 items-center justify-center border border-[var(--border)] rounded-full bg-[var(--card)] shadow-sm">
                 <UserButton
                   appearance={{
                     elements: {
